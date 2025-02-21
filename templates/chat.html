@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Q&A Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white flex flex-col items-center justify-center h-screen">
+    <div class="bg-gray-800 p-6 rounded-2xl shadow-xl max-w-md w-full">
+        <h1 class="text-2xl font-bold text-center mb-4">⚽ Football Q&A Chatbot</h1>
+        
+        <form id="chat-form" class="flex flex-col gap-4">
+            <label for="question" class="text-lg">พิมพ์คำถามของคุณ:</label>
+            <input type="text" id="question" name="question" required 
+                class="p-2 rounded-lg text-black w-full focus:ring-2 focus:ring-blue-500">
+            <button type="submit" 
+                class="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition-all">
+                ถามเลย
+            </button>
+        </form>
+        
+        <div class="mt-4 p-4 bg-gray-700 rounded-lg min-h-[50px]" id="answer-box">
+            <h2 class="text-lg font-semibold">คำตอบ:</h2>
+            <p id="answer" class="mt-2 text-yellow-300">...</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("chat-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const question = document.getElementById("question").value;
+            const answerBox = document.getElementById("answer");
+            answerBox.innerText = "กำลังคิด...";
+
+            const response = await fetch("/ask", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ question: question }),
+            });
+
+            const data = await response.json();
+            answerBox.innerText = data.answer || "ไม่สามารถตอบคำถามได้";
+        });
+    </script>
+</body>
+</html>
