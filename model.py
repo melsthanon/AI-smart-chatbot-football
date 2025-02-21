@@ -15,8 +15,7 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 
 # ตั้งค่า OpenAI API Key (ยังคงใช้แบบ hardcoded)
-load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = "API keys on readme"
 
 # โหลดโมเดลฝังข้อความ
 try:
