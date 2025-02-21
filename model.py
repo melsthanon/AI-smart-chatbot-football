@@ -7,7 +7,6 @@ import openai
 import logging
 import os
 from dotenv import load_dotenv
-
 # ตั้งค่า logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
